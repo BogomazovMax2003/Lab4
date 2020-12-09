@@ -1,0 +1,84 @@
+#include <iostream>
+#include<vector>
+
+void sort(std::vector<int>& v) {
+    for (size_t i = 0; i < v.size(); i++) {
+        for (size_t j = 0; j < v.size() - 1; j++) {
+            if (v[j] > v[j + 1]) {
+                std::swap(v[j], v[j + 1]);
+            }
+        }
+    }
+}
+void insertion(std::vector<int>& d) {
+    for (size_t i = 0; i < d.size(); i++) {
+        int z = d[i];
+        int j = i - 1;
+        while (j >= 0 and z < d[j]) {
+            d[j + 1] = d[j];
+            j = j - 1;
+            d[j + 1] = z;
+        }
+    }
+
+
+}
+void quicksort(std::vector<int>& v, int first, int last)
+{
+    int centr, z;
+    int f = first, l = last;
+    centr = v[(f + l) / 2]; //вычисление опорного элемента
+    do
+    {
+        while (v[f] < centr) f++;
+        while (v[l] > centr) l--;
+        if (f <= l) //перестановка элементов
+        {
+            z = v[f];
+            v[f] = v[l];
+            v[l] = z;
+            f++;
+            l--;
+        }
+    } while (f < l);
+    if (first < l) quicksort(v, first, l);
+    if (f < last) quicksort(v, f, last);
+}
+
+
+int main()
+{
+    std::vector<int> c(30);
+    for (int i = 0; i < 30; i++) {
+        c[i] = rand() % 100;
+        std::cout << c[i] << ' ';
+    }
+    std::cout << std::endl;
+    sort(c);
+    for (int i = 0; i < 30; i++) {
+        std::cout << c[i] << ' ';
+    }
+    std::cout << std::endl;
+    std::vector<int> z(30);
+    for (int i = 0; i < 30; i++) {
+        z[i] = rand() % 100;
+        std::cout << z[i] << ' ';
+    }
+    std::cout << std::endl;
+    insertion(z);
+    for (int i = 0; i < 30; i++) {
+        std::cout << z[i] << ' ';
+    }
+    std::cout << std::endl;
+    std::vector<int> y(30);
+    for (int i = 0; i < 30; i++) {
+        y[i] = rand() % 100;
+        std::cout << y[i] << ' ';
+    }
+    std::cout << std::endl;
+    for (int i = 0; i < 30; i++) {
+        quicksort(y, 0, 29);
+        std::cout << y[i] << ' ';
+    }
+    return 0;
+}
